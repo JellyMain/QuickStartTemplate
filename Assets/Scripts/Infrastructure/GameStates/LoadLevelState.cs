@@ -32,7 +32,7 @@ namespace Infrastructure.GameStates
             CreateLevel();
             saveLoadService.UpdateProgress();
 
-            gameStateMachine.Enter<EnterableLoopState>();
+            gameStateMachine.Enter<GameLoopState>();
         }
 
 

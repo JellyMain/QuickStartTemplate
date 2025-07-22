@@ -67,5 +67,20 @@ namespace Assets
 
             return await handle.Task;
         }
+        
+        
+        public void Cleanup()
+        {
+            foreach (List<AsyncOperationHandle> resourceHandles in allHandles.Values)
+            {
+                foreach (AsyncOperationHandle handle in resourceHandles)
+                {
+                    Addressables.Release(handle);
+                }
+            }
+
+            assetsCache.Clear();
+            allHandles.Clear();
+        }
     }
 }

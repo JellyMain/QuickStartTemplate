@@ -4,21 +4,14 @@ using UnityEngine;
 
 namespace Infrastructure.GameStates
 {
-    public class EnterableLoopState : IEnterableState
+    public class GameLoopState : IEnterableState
     {
-        public EnterableLoopState() { }
+        public GameLoopState() { }
 
 
         public void Enter()
         {
             Debug.Log("Entered GameLoopState");
-            InitGameLoopServices();
         }
-
-
-        private void InitGameLoopServices() { }
     }
 }
-
-
-

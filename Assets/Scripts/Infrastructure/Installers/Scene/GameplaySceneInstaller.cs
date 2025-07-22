@@ -28,7 +28,7 @@ namespace Infrastructure.Installers.Scene
         private void BindGameStates(IContainerBuilder builder)
         {
             builder.Register<LoadLevelState>(Lifetime.Singleton);
-            builder.Register<EnterableLoopState>(Lifetime.Singleton);
+            builder.Register<GameLoopState>(Lifetime.Singleton);
         }
     }
 }
