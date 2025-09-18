@@ -28,6 +28,7 @@ namespace AddressWizard.Editor
         private GUIStyle buttonStyle;
         private GUIStyle richTextStyle;
         private GUIStyle logStyle;
+        private GUIStyle introStyle;
 
 
 
@@ -58,6 +59,13 @@ namespace AddressWizard.Editor
 
             logStyle = new GUIStyle(EditorStyles.label);
             logStyle.fontSize = 16;
+
+            introStyle = new GUIStyle(EditorStyles.helpBox);
+            introStyle.padding = new RectOffset(15, 15, 15, 15);
+            introStyle.margin = new RectOffset(5, 5, 10, 15);
+            introStyle.fontSize = 12;
+            introStyle.wordWrap = true;
+            introStyle.normal.textColor = new Color(0.8f, 0.8f, 0.8f);
         }
 
 
@@ -93,6 +101,9 @@ namespace AddressWizard.Editor
             DrawWindowHeader();
 
             EditorGUILayout.Space(20);
+
+            DrawIntroductionSection();
+            EditorGUILayout.Space(15);
 
             DrawSettingsSection();
             EditorGUILayout.Space(15);
@@ -135,8 +146,10 @@ namespace AddressWizard.Editor
             EditorGUILayout.BeginVertical(EditorStyles.helpBox);
 
             EditorGUI.BeginChangeCheck();
-            autoSimplifyAddressableNames =
-                EditorGUILayout.Toggle("Auto Simplify Names", autoSimplifyAddressableNames);
+            autoSimplifyAddressableNames = EditorGUILayout.Toggle(
+                new GUIContent("Auto Simplify Names",
+                    "Automatically simplify newly added addressable asset names"),
+                autoSimplifyAddressableNames);
 
             if (EditorGUI.EndChangeCheck())
             {
@@ -146,7 +159,10 @@ namespace AddressWizard.Editor
 
             EditorGUI.BeginChangeCheck();
 
-            autoAddConstants = EditorGUILayout.Toggle("Auto Add Constants", autoAddConstants);
+            autoAddConstants = EditorGUILayout.Toggle(
+                new GUIContent("Auto Add Constants",
+                    "Automatically generate constants for newly added addressable assets"),
+                autoAddConstants);
 
             if (EditorGUI.EndChangeCheck())
             {
@@ -158,14 +174,54 @@ namespace AddressWizard.Editor
         }
 
 
+        private void DrawIntroductionSection()
+        {
+            EditorGUILayout.BeginVertical(introStyle);
+
+            GUIStyle welcomeStyle = new GUIStyle(EditorStyles.boldLabel);
+            welcomeStyle.fontSize = 14;
+            welcomeStyle.normal.textColor = HeaderColor;
+            EditorGUILayout.LabelField("Welcome to Address Wizard!", welcomeStyle);
+
+            EditorGUILayout.Space(5);
+
+            GUIStyle descriptionStyle = new GUIStyle(EditorStyles.label);
+            descriptionStyle.wordWrap = true;
+            descriptionStyle.fontSize = 11;
+
+            EditorGUILayout.LabelField(
+                "Address Wizard helps you manage Unity Addressables by automatically generating constants for your addressable assets. " +
+                "This eliminates typos and saves you a little bit of time :)",
+                descriptionStyle);
+
+            EditorGUILayout.Space(10);
+
+            EditorGUILayout.LabelField("Quick Start Guide:", EditorStyles.boldLabel);
+            EditorGUILayout.LabelField("1. Configure your settings below",
+                descriptionStyle);
+            EditorGUILayout.LabelField("2. Select your target script where constants will be generated",
+                descriptionStyle);
+            EditorGUILayout.LabelField("3. Click 'Get Addressable Groups' to scan your project", descriptionStyle);
+            EditorGUILayout.LabelField("4. Click 'Sync Addressables' to generate constants in your selected script",
+                descriptionStyle);
+            EditorGUILayout.LabelField("You can open Address Wizard window by clicking Tools -> Address Wizard",
+                descriptionStyle);
+
+            EditorGUILayout.EndVertical();
+        }
+
+
+
         private void DrawScriptSelectionSection()
         {
             EditorGUILayout.LabelField("Script Selection", EditorStyles.boldLabel);
             EditorGUILayout.BeginVertical(EditorStyles.helpBox);
 
             EditorGUI.BeginChangeCheck();
-            scriptSelectionType =
-                (ScriptSelectionType)EditorGUILayout.EnumPopup("Script Selection Type", scriptSelectionType);
+            scriptSelectionType = (ScriptSelectionType)EditorGUILayout.EnumPopup(
+                new GUIContent("Script Selection Type",
+                    "Choose how to select target scripts: General (single script for all types) or By Addressable Type (separate scripts for prefabs and scriptable objects)"),
+                scriptSelectionType);
 
             if (EditorGUI.EndChangeCheck())
             {

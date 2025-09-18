@@ -13,7 +13,3 @@ namespace Progress
         
     }
 }
-
-
-namespace Progress
-{ }

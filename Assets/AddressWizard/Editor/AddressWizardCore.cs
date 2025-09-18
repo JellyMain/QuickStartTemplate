@@ -43,6 +43,18 @@ namespace AddressWizard.Editor
         static AddressWizardCore()
         {
             UpdateData();
+            EditorApplication.delayCall += CheckFirstRun;
+        }
+
+
+        private static void CheckFirstRun()
+        {
+            if (addressWizardData.firstRun)
+            {
+                addressWizardData.firstRun = false;
+                AddressWizardWindow.ShowWindow();
+                AddressWizardSaver.SaveData(addressWizardData);
+            }
         }
 
 

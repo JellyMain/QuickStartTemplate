@@ -56,10 +56,34 @@ namespace Factories
         }
 
 
+        protected async UniTask<GameObject> InstantiatePrefab(string prefabAddress, Vector3 position,
+            Quaternion rotation, Transform parent = null)
+        {
+            GameObject prefab = await assetProvider.LoadAsset<GameObject>(prefabAddress);
+            return objectResolver.Instantiate(prefab, position, rotation, parent);
+        }
+
+
         protected async UniTask<T> InstantiatePrefabWithComponent<T>(string prefabAddress, Transform parent = null)
             where T : Component
         {
             GameObject instance = await InstantiatePrefab(prefabAddress, parent);
+            return instance.GetComponent<T>();
+        }
+
+
+        protected async UniTask<T> InstantiatePrefabWithComponent<T>(string prefabAddress, Vector3 position,
+            Transform parent = null) where T : Component
+        {
+            GameObject instance = await InstantiatePrefab(prefabAddress, position, parent);
+            return instance.GetComponent<T>();
+        }
+
+
+        protected async UniTask<T> InstantiatePrefabWithComponent<T>(string prefabAddress, Vector3 position,
+            Quaternion rotation, Transform parent = null) where T : Component
+        {
+            GameObject instance = await InstantiatePrefab(prefabAddress, position, rotation, parent);
             return instance.GetComponent<T>();
         }
     }

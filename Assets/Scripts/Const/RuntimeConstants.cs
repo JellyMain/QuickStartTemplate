@@ -1,35 +1,23 @@
 namespace Const
 {
-    public class RuntimeConstants
+    public static class RuntimeConstants
     {
         public static class PlayerProgressKeys
         {
             public const string PLAYER_PROGRESS_KEY = "PlayerProgressKey";
         }
 
-        
-        public static class PrefabAddresses
-        {
-            
-        }
+
+        public static class PrefabAddresses { }
 
 
-        public static class StaticDataAddresses
-        {
-            
-        }
+        public static class StaticDataAddresses { }
 
 
-        public static class Tags
-        {
-           
-        }
+        public static class Tags { }
 
-        
-        public static class Layers
-        {
-            
-        }
+
+        public static class Layers { }
 
 
         public static class Scenes
